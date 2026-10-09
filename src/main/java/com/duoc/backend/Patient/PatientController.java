@@ -1,4 +1,5 @@
-package com.duoc.backend.patient;
+package com.duoc.backend.Patient;
+import com.duoc.backend.patient.Patient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -18,11 +20,13 @@ import java.util.List;
 public class PatientController {
 
     @Autowired
-    private PatientService patientService;
+    private com.duoc.backend.patient.PatientService patientService;
 
     @GetMapping("/register")
     public String greetings(@RequestParam(value="name", defaultValue="World") String name) {
-        return "Hello {" + name + "}";
+        // Sanitizamos la variable 'name' usando HtmlUtils.htmlEscape
+        String safeName = HtmlUtils.htmlEscape(name);
+        return "Hello {" + safeName + "}";
     }
 
     @GetMapping
